@@ -11,36 +11,52 @@ var ingrSearch = "";
 // Click handler for ingredients submit button
 
 $(".btn").on("click", function(e) {
-e.preventDefault();
+  e.preventDefault();
 
-// Grab list of ingredients from user input
-ingrSearch = $("#ingredientList").val().trim();
-console.log(ingrSearch);
+  // Grab list of ingredients from user input
+  ingrSearch = $("#ingredientList").val().trim();
+  console.log(ingrSearch);
 
-// Construct new query string with user inputs
-var newURL = baseQuery + ingrSearch + "&app_id=" + appId + "&app_key=" + apiKey;
+  // Construct new query string with user inputs
+  var newURL = baseQuery + ingrSearch + "&app_id=" + appId + "&app_key=" + apiKey;
 
-// Ajax call
-$.ajax({
-    url: newURL,
-    method: "GET"
-  }).then(function(response) {
-    console.log(response);
+  // Ajax call
+  $.ajax({
+      url: newURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
 
-    // List each recipe
-    var numRecipes = response.hits.length;
-    console.log(numRecipes);
-    for (var i = 0; i < numRecipes; i++) {
-      var recipe = response.hits[i].recipe.url;
-      console.log(recipe); 
+      // List each recipe
+      var numRecipes = response.hits.length;
+      console.log(numRecipes);
+      for (var i = 0; i < numRecipes; i++) {
 
-      // Create div to dynamically list recipes
-      var recipeDiv = $("<div>");
-      recipeDiv.text(recipe);
-      // Adding the button to the HTML
-      $(".recipeList").append(recipeDiv);
-    };
+        // Create div to dynamically list recipes
+        var recipeDiv = $("<div>");
+        // Label tag for recipes
+        var recipeLabel = $("<p>").text(response.hits[i].recipe.label);
+        // Image tag for recipes
+        var recipeImg = $("<img>");
+        recipeImg.attr("src",response.hits[i].recipe.image);
 
-});
+        // Create anchor tag for the recipeDiv
+        var recipeAnchor = $("<a>");
+        // Set src attribute of recipe URL to the anchor tag
+        recipeAnchor.attr("href", response.hits[i].recipe.url);
+        console.log(response.hits[i].recipe.url); 
+
+        // Append label and image to the div
+        recipeDiv.append(recipeLabel);
+        recipeDiv.append(recipeImg);
+        
+        // Append div recipeDiv to the recipeAnchor
+        recipeAnchor.append(recipeDiv);
+
+        // Adding the button to the HTML
+        $(".recipeList").append(recipeAnchor);
+      };
+
+  });
 
 });
