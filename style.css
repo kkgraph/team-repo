@@ -27,7 +27,6 @@ a:active {
     padding: 10px;
 }
 
-
 /* FOOTER ELEMENTS */
 .footer {
     padding: 10px;
@@ -35,4 +34,8 @@ a:active {
     bottom: 0;
     background-color: #f5f5f5;
     color: 	#24305e;
+}
+/* LANDING PAGE BODY */
+.landing {
+    background-color: #a8d0e6;
 }
