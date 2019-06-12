@@ -30,6 +30,39 @@
 
 <body class="landing">
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Sign Up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <form class="px-4 py-3">
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">Email address</label>
+              <input type="email" class="form-control" id="newUserEmail" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormPassword1">Password</label>
+              <input type="password" class="form-control" id="newUserPassword" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
@@ -55,7 +88,10 @@
         <button id="signOut" type="submit" class="btn btn-primary">Sign out</button>
       </form>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">New around here? Sign up</a>
+      <!-- Button trigger modal -->
+      <a  class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
+        New User? Sign Up!
+      </a>
       <a class="dropdown-item" href="#">Forgot password?</a>
     </div>
   </div>
@@ -97,13 +133,20 @@
   </div>
 
   <!-- firebase link -->
-  <script type="text/javascript" src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
 
-  <script type="text/javascript" src="assets/javascript/zomato.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-database.js"></script>
+  <!-- firebase Auth file -->
+<script defer src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  
   <!-- JS File  -->
   <script type="text/javascript" src="assets/javascript/logic.js"></script>
+  <script type="text/javascript" src="assets/javascript/zomato.js"></script>
+
+  
 
 </body>
 

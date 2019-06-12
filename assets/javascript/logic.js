@@ -3,7 +3,6 @@
 // Example of an API query for ingredients chicken, mushrooms, garlic
 // https://api.edamam.com/search?q=chicken,garlic,mushrooms&app_id=a2545d79&app_key=f43e58c104b981cd9a7ef77393c1cbad
 
-// Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyDQtEqo93MUEgnY0AngvOsfshKbMH8ChA4",
   authDomain: "crumbs-243103.firebaseapp.com",
@@ -13,11 +12,11 @@ var firebaseConfig = {
   messagingSenderId: "68338396052",
   appId: "1:68338396052:web:2d602427a8bff86c"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
+
 
 // Initialize query string
 var baseQuery = "https://api.edamam.com/search?q=";
@@ -26,8 +25,33 @@ var appId = "a2545d79";
 var ingrSearch = "";
 var ingrArray = [];
 
+// --------firebase logic for user----------
+// On click event for the Sign In button
+$(document).on("click", "#signIn", function (event) {
+  event.preventDefault();
+  var email = $("#email").val();
+  console.log(email);
+  var password = $("#password").val();
+  console.log(password);
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode)
+    console.log(errorMessage)
+
+  });
+});
+
+// Sign Out Function
+$(document).on("click", "#signOut", function(event){
+event.preventDefault();
+firebase.auth().signOut();
+console.log("user signed out")
+})
+
+
 // Click handler for ingredients submit button
-$(".btn").on("click", function(e) {
+$(".ingrSubmit").on("click", function(e) {
   e.preventDefault();
 
   // Clear out previous list of ingredients
@@ -151,17 +175,4 @@ database.ref().on("child_added", function (child) {
 //   window.user = user
 // });
 
-// On click event for the Sign In button
-$(document).on("click", "#signIn", function (event) {
-  event.preventDefault();
-  var email = $("#email").val();
-  console.log(email);
-  var password = $("#password").val();
-  console.log(password);
-  var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-  console.log(credential)
-  var auth = firebase.auth();
-  var currentUser = auth.currentUser;
 
-
-});
