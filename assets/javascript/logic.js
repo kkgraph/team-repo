@@ -62,7 +62,7 @@ $(".btn").on("click", function(e) {
 
     // Create span to delete
     var ingrSpan = $('<span/>', {
-      text: 'x',
+      text: '     X',
       id: 'deleteIngr',
       value: ingrArray[i],
     });
