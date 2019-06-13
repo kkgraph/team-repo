@@ -33,7 +33,7 @@ $(document).on("click", "#signIn", function (event) {
   console.log(email);
   var password = $("#password").val();
   console.log(password);
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
     console.log(errorCode)
@@ -48,7 +48,8 @@ $(document).on("click", "#signUpBtn", function (event) {
   var password = $("#newUserPassword").val();
   console.log(password);
 
-  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  .catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -92,10 +93,19 @@ $(".ingrSubmit").on("click", function(e) {
   ingrArray = ingrSearch.split(',');
   console.log(ingrArray)
 
+  // Gets current firebase user
+  var user = firebase.auth().currentUser;
+  var uid;
+  if (user != null) {
+    uid = user.uid;  
+    console.log(uid)
+  }
+
   // Adds ingrArray to the Firebase
   database.ref().push({
     ingrList: ingrArray,
-    dateAdded: firebase.database.ServerValue.TIMESTAMP
+    dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    user: uid,
   });
   console.log("firebase fired")
 
