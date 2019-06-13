@@ -37,7 +37,7 @@ $(document).ready(function() {
    $.getJSON(settings, function(data) {
  
     data = data.restaurants;
-    var newHtml = ""; //creating html variable so that i can create the html to add to the div below 
+    var html = ""; //creating html variable so that i can create the html to add to the div below 
  
     $.each(data, function(index, value) {
  
@@ -47,32 +47,32 @@ $(document).ready(function() {
         var userRating = x.restaurant.user_rating;
 
 //adding html to the html var
-        newHtml += "<div class='data img-rounded'>"; //image class started
-        newHtml += "<div class='rating'>"; //rating class
+        html += "<div class='data img-rounded'>"; //image class started
+        html += "<div class='rating'>"; //rating class
 
-        newHtml += "<span title='" + userRating.rating_text + "'> <p style='color:white;background-color:#" + userRating.rating_color + ";border-radius:4px;border:2px;padding:2px 10px 2px 10px;text-align: center;text-decoration:none;display:inline-block;font-size:16px;float:right;'> <strong>" + userRating.aggregate_rating + "</strong></p></span><br>"; //this creates the area for the rating to be shown 
+        html += "<span title='" + userRating.rating_text + "'> <p style='color:white;background-color:#" + userRating.rating_color + ";border-radius:4px;border:2px;padding:2px 10px 2px 10px;text-align: center;text-decoration:none;display:inline-block;font-size:16px;float:right;'> <strong>" + userRating.aggregate_rating + "</strong></p></span><br>"; //this creates the area for the rating to be shown 
 
-        newHtml += "  <strong class='text-info'>" + userRating.votes + " votes</strong>"; //includes the vote data
+        html += "  <strong class='text-info'>" + userRating.votes + " votes</strong>"; //includes the vote data
 
-        newHtml += "</div>"; // ends the rating and votes div 
+        html += "</div>"; // ends the rating and votes div 
 
-        newHtml += "<img class='resimg img-round' src=" + value.thumb + " alt='Restaurant Image' height='165' width='165'>"; //starts the image area -- the img-round is the round image class and resimg-resizes the images
+        html += "<img class='resimg img-round' src=" + value.thumb + " alt='Restaurant Image' height='165' width='165'>"; //starts the image area -- the img-round is the round image class and resimg-resizes the images
 
-        newHtml += "<a href=" + value.url + " target='_blank' class='action_link'><h2 style='color:navy;'><strong>" + value.name + "</strong></h2></a>"; //this creates the action that allows users to click on the title and go to the restaurant on a new page 
+        html += "<a href=" + value.url + " target='_blank' class='action_link'><h2 style='color:navy;'><strong>" + value.name + "</strong></h2></a>"; //this creates the action that allows users to click on the title and go to the restaurant on a new page 
 
-        newHtml += "  <strong class='text-primary'>" + location.locality + "</strong><br>"; //adds the location
+        html += "  <strong class='text-primary'>" + location.locality + "</strong><br>"; //adds the location
 
-        newHtml += " <span>" + location.address + "</span><br><br>"; //adds the address
+        html += " <span>" + location.address + "</span><br><br>"; //adds the address
 
-        newHtml += "  <strong>CUISINES</strong>: " + value.cuisines + "<br>"; //adds the cuisine types for the restaurant
+        html += "  <strong>CUISINES</strong>: " + value.cuisines + "<br>"; //adds the cuisine types for the restaurant
 
-        newHtml += "  <strong>COST FOR TWO</strong>: " + value.currency + value.average_cost_for_two + "<br>"; //adds the cost for 2 people in local currency
+        html += "  <strong>COST FOR TWO</strong>: " + value.currency + value.average_cost_for_two + "<br>"; //adds the cost for 2 people in local currency
 
-        newHtml += "</div><br>"; //ends overall div
+        html += "</div><br>"; //ends overall div
 
      });
     });
-    $(".message").html(newHtml); //adding to the message div 
+    $(".message").html(html); //adding to the message div 
    });
  
   }

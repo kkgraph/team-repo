@@ -161,6 +161,38 @@ h6 {
 
 /*RECIPE PAGE*/
 
+#fridgeIngredients {
+  padding: 0;
+  list-style-type: none;
+  clear: both;
+}
+
+.list-item {
+  font-size: 1.3rem;
+  width: 300px;
+  height: 30px;
+  padding: 10px;
+  text-align: center;
+}
+
+.list-item:nth-child(odd) {
+  background: #a8d0e6;
+  color: black;
+}
+
+.list-item:nth-child(even) {
+  background: #374785;
+  color: white;
+}
+
+.list-delete-btn {
+  cursor: pointer;
+  float: left;
+  margin: -5px;
+  padding: 5px 9px;
+}
+
+
 /*RESTAURANT FINDER PAGE*/
 .jumbotron-billboard .img {
   margin-bottom: 0px;
@@ -243,7 +275,6 @@ a.action_link {
 .footer {
     padding: 10px;
     width: 100%;
-    top: 80%;
     bottom: 0;
     background-color: #f5f5f5;
     color: 	#24305e;
