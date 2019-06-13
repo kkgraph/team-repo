@@ -3,7 +3,6 @@
 // Example of an API query for ingredients chicken, mushrooms, garlic
 // https://api.edamam.com/search?q=chicken,garlic,mushrooms&app_id=a2545d79&app_key=f43e58c104b981cd9a7ef77393c1cbad
 
-// Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyDQtEqo93MUEgnY0AngvOsfshKbMH8ChA4",
   authDomain: "crumbs-243103.firebaseapp.com",
@@ -13,11 +12,11 @@ var firebaseConfig = {
   messagingSenderId: "68338396052",
   appId: "1:68338396052:web:2d602427a8bff86c"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
+
 
 // Initialize query string
 var baseQuery = "https://api.edamam.com/search?q=";
@@ -26,8 +25,56 @@ var appId = "a2545d79";
 var ingrSearch = "";
 var ingrArray = [];
 
+// --------firebase logic for user----------
+// On click event for the Sign In button
+$(document).on("click", "#signIn", function (event) {
+  event.preventDefault();
+  var email = $("#email").val();
+  console.log(email);
+  var password = $("#password").val();
+  console.log(password);
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode)
+    console.log(errorMessage)
+  });
+});
+
+$(document).on("click", "#signUpBtn", function (event) {
+  event.preventDefault();
+  var email = $("#newUserEmail").val();
+  console.log(email);
+  var password = $("#newUserPassword").val();
+  console.log(password);
+
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // [START_EXCLUDE]
+    if (errorCode === 'auth/wrong-password') {
+      alert('Wrong password.');
+    } else {
+      alert(errorMessage);
+    }
+    console.log(error);
+    // document.getElementById('quickstart-sign-in').disabled = false;
+    // [END_EXCLUDE]
+  });
+});
+
+
+// Sign Out Function
+$(document).on("click", "#signOut", function(event){
+event.preventDefault();
+firebase.auth().signOut();
+console.log("user signed out")
+})
+
+
 // Click handler for ingredients submit button
-$(".btn").on("click", function(e) {
+$(".ingrSubmit").on("click", function(e) {
   e.preventDefault();
 
   // Clear out previous list of ingredients
@@ -50,7 +97,11 @@ $(".btn").on("click", function(e) {
     ingrList: ingrArray,
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
+<<<<<<< HEAD
+  console.log("firebase fired")
+=======
   // console.log("firebase fired")
+>>>>>>> 904e5b239fb44aaf92a0e21cd8094441b46e4637
 
   // Create div and list out every ingredient
   for (i=0; i<ingrArray.length; i++) {
@@ -59,18 +110,27 @@ $(".btn").on("click", function(e) {
       id: 'ingrDiv'+i,
       value: ingrArray[i]
     });
+<<<<<<< HEAD
+    // Create span to delete
+    var ingrSpan = $('<span/>', {
+      text: 'x',
+      id: 'deleteIngr'
+=======
 
     // Create span to delete
     var ingrSpan = $('<span/>', {
       text: 'x',
       id: 'deleteIngr',
       value: ingrArray[i],
+>>>>>>> 904e5b239fb44aaf92a0e21cd8094441b46e4637
     });
     // Append span to div
     ingrDiv.append(ingrSpan);
     $("#fridgeIngredients").append(ingrDiv);
   };
 
+<<<<<<< HEAD
+=======
   // API call
   runRecipes(ingrSearch);
 });
@@ -100,17 +160,23 @@ $(document).on("click", "#deleteIngr", function (e) {
   runRecipes(ingrSearch);
 });
 
+<<<<<<< HEAD
 // Function to call API & run recipes
 function runRecipes(ingrSearch) {
+=======
+// Function to call API
+function callAPI(ingrSearch) {
+>>>>>>> 904e5b239fb44aaf92a0e21cd8094441b46e4637
+>>>>>>> master
   // Construct new query string with user inputs
   var newURL = baseQuery + ingrSearch + "&app_id=" + appId + "&app_key=" + apiKey;
 
-    // Ajax call to Edamam API to grab recipes
-    $.ajax({
-    url: newURL,
-    method: "GET"
+  // Ajax call to Edamam API to grab recipes
+  $.ajax({
+      url: newURL,
+      method: "GET"
     }).then(function(response) {
-    console.log(response);
+      console.log(response);
 
       // List each recipe
       var numRecipes = response.hits.length;
@@ -153,11 +219,31 @@ function runRecipes(ingrSearch) {
         // Adding the button to the HTML
         $(".recipeList").append(recipeAnchor);
       };
-    });
-};
 
+  });
+
+});
+
+// Click handler for removing ingredient(s)
+$(document).on("click", "#deleteIngr", function(e) {
+  e.preventDefault();
+  console.log(this);
+
+  // Grab removed ingredient and remove from array
+  var ingrVal = $(this).closest("div").attr("value");
+  console.log (ingrVal);
+  var ingrPos = ingrArray.indexOf(ingrVal);
+  console.log(ingrPos);
+  ingrArray.splice(ingrPos, 1);
+  console.log(ingrArray);
+  
+  // Remove div of item
+  $(this).closest("div").remove();
+
+});
 
 // TO DO: 
+// Divide up the code
 // Make exception cases for if user puts in , at the end of ingredient list
 // Duplicated ingredients
 
@@ -174,6 +260,8 @@ database.ref().on("child_added", function (child) {
 //   window.user = user
 // });
 
+<<<<<<< HEAD
+=======
 // On click event for the Sign In button
 $(document).on("click", "#signIn", function (event) {
   event.preventDefault();
@@ -188,3 +276,4 @@ $(document).on("click", "#signIn", function (event) {
 
 
 });
+>>>>>>> 904e5b239fb44aaf92a0e21cd8094441b46e4637
