@@ -9,7 +9,7 @@ var apiKey = "f43e58c104b981cd9a7ef77393c1cbad";
 var appId = "a2545d79";
 var ingrSearch = "";
 var ingrArray = [];
-
+var uid;
 
 // --------firebase logic for user----------
 // On click event for the Sign In button
@@ -55,11 +55,10 @@ $(".ingrSubmit").on("click", function(e) {
 
   // Gets current firebase user
   var user = firebase.auth().currentUser;
-  var uid;
   if (user != null) {
     uid = user.uid;
   }
- 
+ console.log("user id:" + uid)
   // Adds ingrArray to the Firebase
   firebase.database().ref('user-ingrList/' + uid).push({
     ingrList: ingrArray,

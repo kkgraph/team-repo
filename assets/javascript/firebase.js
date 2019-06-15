@@ -1,3 +1,5 @@
+$(document).ready(function () {
+
 var firebaseConfig = {
   apiKey: "AIzaSyDQtEqo93MUEgnY0AngvOsfshKbMH8ChA4",
   authDomain: "crumbs-243103.firebaseapp.com",
@@ -11,6 +13,13 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
+
+
+// var ref = database.ref('user-ingrList/' + uid).orderByChild("dateAdded")
+//   .limitToLast(1)
+// ref.once("value", function (snapshot) {
+//   console.log(snapshot.val())
+// });
 
 // New User Sign Up function
 function userSignIn() {
@@ -78,7 +87,6 @@ function onAuthStateChanged(user) {
   }
   if (user) {
     currentUID = user.uid;
-    console.log(currentUID)
     writeUserData(user.uid, user.email);
   } else {
     // Set currentUID to null.
@@ -90,8 +98,14 @@ function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
   firebase.auth().onAuthStateChanged(onAuthStateChanged)
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    uid = user.uid;
+  }
 };
 
 window.onload = function () {
   initApp();
+
 };
+});
